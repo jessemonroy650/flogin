@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <title>firebase login tests</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel='stylesheet' type='text/css' href='messages/messages.css'>
+    <style>
+    body {margin:0px;font-size:large;}
+    </style>
+    <script type="text/javascript">
+    //
+    function onLoad() {
+        //alert("body loaded.");
+        onDeviceReady();
+    }
+    </script>
+</head>
+<body onload="onLoad()">
+<div id=message class="message success hidden" style="text-align:center;padding-top:0.5em;">
+This is a message
+</div>
+<h3>firebase login tests</h3>
+<div id=form>
+    <input type=text     id=name      placeholder=name /><br>
+    <input type=email    id=email     placeholder="email (required)" /><br>
+    <input type=text     id=password  placeholder="password (required)" /><br>
+    <input type=phone    id=phone     placeholder=phone /><br>
+    <input type=checkbox id=uuid      checked /> May I get a copy of your device ID?<br>
+    <input type=checkbox id=makemodel checked /> Make, Model?<br>
+    <button id=button-signup >Sign Up</button>
+</div>
+<div id=content style="margin:1em;">content</div>
+<pre id=info>pre</pre>
+</body>
+<script type="text/javascript" charset="utf-8" src="js/zepto-1.1.6.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/fastclick.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-accounts.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-rw.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-specific.js"></script>
+<script type="text/javascript" charset="utf-8" src="messages/messages.js"></script>
+<script type="text/javascript" charset="utf-8" src="buttons.js"></script>
+<script type="text/javascript" charset="utf-8" src="app.js"></script>
+<script type="text/javascript" charset="utf-8" >
+    //
+    var gTheDevice = undefined;
+    var device     = undefined;
+    // Wait for PhoneGap to load
+    document.addEventListener("deviceready", onDeviceReady, false);
+    //
+    function onDeviceReady() {
+        console.log("deviceready");
+
+        gTheDevice = (device) ? device.platform : device;
+
+        app.initialize(gTheDevice);
+    }
+</script>
+</html>

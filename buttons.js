@@ -18,6 +18,23 @@ $('#button-logout').click(function() {
     app.logout();
 });
 
+$('#button-reset-password').click(function() {
+    console.info("#button-reset-password");
+    if ($('#email').val()) {
+        app.resetPassword('#email').val()) ;
+    }
+});
+$('#button-get-account').click(function() {
+    console.info("#button-get-account");
+    if ($('#email').val()) {
+        app.getAccount('#email').val(), function(data) {
+        }) ;
+    }
+});
+$('#button-set-account').click(function() {
+    console.info("#button-set-account");
+});
+
 $('#button-signup').click(function() {
     console.info("#button-signup");
     if ($('#email').val() && $('#password').val()) {

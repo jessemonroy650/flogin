@@ -64,7 +64,7 @@ var app = {
         console.log("app.getAccount");
     },
 
-    updateAccount : function (accountData) {
+    updateAccount : function (callback) {
         console.log("app.updateAccount");
     },
 

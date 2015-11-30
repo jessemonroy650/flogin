@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>firebase login tests</title>
+    <title>firebase accounts tests</title>
     <meta name="viewport" content="width=device-width">
     <link rel='stylesheet' type='text/css' href='messages/messages.css'>
     <style>
@@ -20,8 +20,9 @@
 <div id=message class="message success hidden" style="text-align:center;padding-top:0.5em;">
 This is a message
 </div>
-<h3>firebase login tests</h3>
-<div id=form>
+<h3>firebase <tt>accounts</tt> tests</h3>
+<div id=form style="background-color:hsl(135,25%,75%);margin:0.2em;padding:0.2em;">
+<b>signup</b><br>
     <input type=text     id=name      placeholder=name /><br>
     <input type=email    id=email     placeholder="email (required)" /><br>
     <input type=text     id=password  placeholder="password (required)" /><br>
@@ -30,6 +31,31 @@ This is a message
     <input type=checkbox id=makemodel checked /> Make, Model?<br>
     <button id=button-signup >Sign Up</button>
 </div>
+<div id=form style="background-color:hsl(0,25%,75%);margin:0.2em;padding:0.2em;">
+<b>login</b><br>
+    <input type=email    id=email     placeholder="email (required)" /><br>
+    <input type=text     id=password  placeholder="password (required)" /><br>
+    <button id=button-login >Login</button>
+</div>
+<div id=form style="background-color:hsl(225,25%,75%);margin:0.2em;padding:0.2em;">
+<b>logout</b><br>
+    <button id=button-logout >Logout</button>
+</div>
+<div id=form style="background-color:hsl(45,25%,75%);margin:0.2em;padding:0.2em;">
+<b>reset password</b><br>
+    <input type=email    id=email     placeholder="email (required)" /><br>
+    <button id=button-reset-password >Reset Password</button>
+</div>
+
+<div id=form style="background-color:hsl(270,25%,75%);margin:0.2em;padding:0.2em;">
+<b>Get/Set Account</b><br>
+    <input type=text     id=name      placeholder=name /><br>
+    <input type=email    id=email     placeholder="email (required)" /><br>
+    <input type=phone    id=phone     placeholder=phone /><br>
+    <button id=button-get-account >Get Account</button>
+    <button id=button-set-account >Set Account</button>
+</div>
+
 <div id=content style="margin:1em;">content</div>
 <pre id=info>pre</pre>
 </body>

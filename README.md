@@ -22,6 +22,7 @@ Date: 2015-11-28 (1448708146)
 
 1a. new Parse.User(); set("username"), .set("password"), .set("email")
 1b. user.signUp(null, success(){}, error(){})
+
 2. Parse.User.logIn("myname", "mypass", success(){}, error(){})
 3. logOut()
 4. setEmail

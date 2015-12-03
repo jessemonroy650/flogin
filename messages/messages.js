@@ -81,4 +81,4 @@ var myMessage = {
 		}
         //console.info("After toggle:" + document.getElementById(theId).classList);
 	}
-}
+};

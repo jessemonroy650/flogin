@@ -1,4 +1,3 @@
-
 //
 // http://stackoverflow.com/questions/11351689/detect-if-firebase-connection-is-lost-regained
 // NOTE: must wait until connection is made; sometimes upto a 3 seconds.
@@ -13,7 +12,7 @@ var monitorCloudStatus = function (baseref) {
             console.log("NOT CloudConnected");
         }
     });
-}
+};
 
 //
 // https://www.firebase.com/docs/web/guide/user-auth.html#section-monitoring-authentication
@@ -30,16 +29,17 @@ var monitorUserStatus = function (baseref, userref) {
             console.log("user logged out.")
         }
     });
-}
+};
 
 // Firebase: Detecting if data exists. This snippet detects if a user ID is already taken
 // https://gist.github.com/anantn/4323949
 // This call is asynchronous.
 var doesAccountExists = function (userId, baseref, callback) {
+    console.log("doesAccountExists");
     var usersRef = new Firebase(baseref);
     usersRef.child(userId).once('value', function(snapshot) {
         var exists = (snapshot.val() !== null);
         callback(exists);
     });
 
-}
+};

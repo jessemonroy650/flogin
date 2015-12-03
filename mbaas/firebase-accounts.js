@@ -9,20 +9,21 @@
 var gMybaseRef      = new Firebase('https://user-login.firebaseio.com/');
 var gFirebaseRef    = new Firebase('https://user-login.firebaseio.com/users');
 
-var sErrorMsgCreate   = {'EMAIL_TAKEN': "That email is in use on this system.", 'INVALID_EMAIL': "You gave me an invalid email addres."};
+var sErrorMsgCreate   = {'EMAIL_TAKEN': "That email is in use on this system.", 'INVALID_EMAIL': "You gave me an invalid email address."};
 var sErrorMsgLogin    = {'LOGIN_FAILED': "Your login did not work. Your email or password was wrong. I don't know which is wrong."};
-var sErrorMsgLostPass = {'INVALID_USER':'The specified user account does not exist.'};
+var sErrorMsgLostPass = {'INVALID_USER': "The specified user account does not exist."};
 
 var account = {
 
 	//
-	create : function(obj, success, error) {
+	create : function (obj, success, error) {
+        console.log("account.create:");
         credentials = {"email": obj.email, "password": obj.password};
-        console.log("credentials", credentials);
+        console.log("account.create: credentials", credentials);
 
-        return;
         // detectCollision()
         doesAccountExists(obj.email, gFirebaseRef, function (exists) {
+            console.log("callback of doesAccountExists");
             if (! exists) {
                 // Firebase.createUser() 
                 // https://www.firebase.com/docs/web/api/firebase/createuser.html
@@ -33,8 +34,12 @@ var account = {
                         account.login(credentials, function(payload) {
                             // payload.uid payload.provider payload.auth payload.expires
                             console.log('Create account and Login successfully with payload:', payload);
-                            writeData(gUserDataRef, {'email': obj.email, 'phone': obj.phone, 'uid': userData.uid});
-                            //settingsUserUpdate()
+                            writeData(gUserDataRef,
+                                {'email': obj.email, 'phone': obj.phone, 'uid': userData.uid},
+                                function() {success("account created and data added");},
+                                function() {success("Failed create account");}
+                                );
+                            
                         }, function(err) {
                             console.error("Error with authWithPassword, which should not happen.");
                         });
@@ -53,10 +58,6 @@ var account = {
             }
         });
 	},
-
-    //
-    _createAccount : function() {
-    },
 
 	//
 	login : function(obj, success, error) {
@@ -80,17 +81,23 @@ var account = {
 	},
 
 	//
-	logout : function() {
+	logout : function () {
         gFirebaseRef.unauth();
 	},
 
 	//
-	changeEmail : function() {
+	changeEmail : function () {
 	},
 
 	//
-	changePassword : function() {
+	changePassword : function () {
 	},
+
+    getAccount : function () {
+    },
+
+    setAccount : function () {
+    },
 
 	//
 	resetPassword : function(obj, success, error) {
@@ -110,5 +117,4 @@ var account = {
             }        
         });
 	}
-
-}
+};

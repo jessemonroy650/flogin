@@ -4,7 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
     <title>firebase accounts tests</title>
     <meta name="viewport" content="width=device-width">
-    <link rel='stylesheet' type='text/css' href='messages/messages.css'>
+    <link rel='stylesheet' type='text/css' href='messages/messages.css' />
     <style>
     body {margin:0px;font-size:large;}
     </style>
@@ -33,8 +33,8 @@ This is a message
 </div>
 <div id=form style="background-color:hsl(0,25%,75%);margin:0.2em;padding:0.2em;">
 <b>login</b><br>
-    <input type=email    id=email     placeholder="email (required)" /><br>
-    <input type=text     id=password  placeholder="password (required)" /><br>
+    <input type=email    id=login-email     placeholder="email (required)" /><br>
+    <input type=text     id=login-password  placeholder="password (required)" /><br>
     <button id=button-login >Login</button>
 </div>
 <div id=form style="background-color:hsl(225,25%,75%);margin:0.2em;padding:0.2em;">
@@ -43,27 +43,27 @@ This is a message
 </div>
 <div id=form style="background-color:hsl(45,25%,75%);margin:0.2em;padding:0.2em;">
 <b>reset password</b><br>
-    <input type=email    id=email     placeholder="email (required)" /><br>
+    <input type=email    id=reset-email     placeholder="email (required)" /><br>
     <button id=button-reset-password >Reset Password</button>
 </div>
 
 <div id=form style="background-color:hsl(270,25%,75%);margin:0.2em;padding:0.2em;">
 <b>Get/Set Account</b><br>
-    <input type=text     id=name      placeholder=name /><br>
-    <input type=email    id=email     placeholder="email (required)" /><br>
-    <input type=phone    id=phone     placeholder=phone /><br>
+    <input type=text     id=gs-name      placeholder=name /><br>
+    <input type=email    id=gs-email     placeholder="email (required)" /><br>
+    <input type=phone    id=gs-phone     placeholder=phone /><br>
     <button id=button-get-account >Get Account</button>
     <button id=button-set-account >Set Account</button>
 </div>
 
 <div id=content style="margin:1em;">content</div>
 <pre id=info>pre</pre>
-</body>
 <script type="text/javascript" charset="utf-8" src="js/zepto-1.1.6.js"></script>
 <script type="text/javascript" charset="utf-8" src="js/fastclick.js"></script>
-<script type="text/javascript" charset="utf-8" src="mbaas/firebase-accounts.js"></script>
-<script type="text/javascript" charset="utf-8" src="mbaas/firebase-rw.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/firebase-2.2.1.js"></script>
 <script type="text/javascript" charset="utf-8" src="mbaas/firebase-specific.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-rw.js"></script>
+<script type="text/javascript" charset="utf-8" src="mbaas/firebase-accounts.js"></script>
 <script type="text/javascript" charset="utf-8" src="messages/messages.js"></script>
 <script type="text/javascript" charset="utf-8" src="buttons.js"></script>
 <script type="text/javascript" charset="utf-8" src="app.js"></script>
@@ -80,6 +80,10 @@ This is a message
         gTheDevice = (device) ? device.platform : device;
 
         app.initialize(gTheDevice);
+        if (account == undefined) {
+            console.log("`account` undefined");
+        }
     }
 </script>
+</body>
 </html>

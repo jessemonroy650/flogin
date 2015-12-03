@@ -22,7 +22,7 @@ var readData = function (dataRef, callback, err) {
     } else {
         console.log("readData has no reference.");
     }
-}
+};
 //
 //    Write some actual data
 //
@@ -39,4 +39,4 @@ var writeData = function (dataRef, data, callback, err) {
     } else {
         console.log("writeData has no reference.");
     }
-}
+};

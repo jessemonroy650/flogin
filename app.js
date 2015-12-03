@@ -12,24 +12,40 @@ var gLoggedIn       = undefined;
 var app = {
 
     initialize : function (device) {
-        console.log("initialize");
+        console.log("app.initialize");
     },
 
     signup : function () {
         console.log("app.signup");
+        var okGetUU = $('#uuid').is(":checked");
+        var okGetMM = $('#makemodel').is(":checked");
         gCredentials.email    = $('#email').val();
         gCredentials.password = $('#password').val();
         console.log("gCredentials:",gCredentials);
-        gUserData.name  = $('#name').val();
-        gUserData.phone = $('#phone').val();
-        gUserData.uuid  = $('#uuid').is(":checked");
-        gUserData.makemodel = $('#makemodel').is(":checked");
-        console.log("gUserData:",gUserData);
-        /*
-        account.create(gCredentials,
-            function () { // success
+        gUserData.name        = $('#name').val();
+        gUserData.phone       = $('#phone').val();
+        gUserData.uuid      = false;
+        gUserData.makemodel = false;
+        gUserData.cordova   = false;
+        gUserData.platform  = false;
+        // get device info only if we are on the device.
+/*
+        if (gTheDevice != undefined) {
+            gUserData.uuid      = (okGetUU) ? device.uuid : false;
+            gUserData.makemodel = (okGetMM) ? device.model : false;
+            gUserData.cordova   = device.cordova;
+            gUserData.platform  = device.platform + ";" + device.version;
+        }
+*/
+        console.log("gUserData:", gUserData);
+        //console.log(sErrorMsgLostPass[INVALID_USER]);
+        account.create(gCredentials);
+/*,
+            function (data) { // success
+                myMessage.myMessage('message','success', "Account created", 4000);
             },
-            function () { // error
+            function (error) { // error
+                myMessage.myMessage('message','error', "Error creating account:" + error, 6000);
             });
         */
         // clear out fields
@@ -41,8 +57,8 @@ var app = {
 
     login : function (credentials) {
         console.log("app.login");
-        gCredentials.email    = $('#email').val();
-        gCredentials.password = $('#password').val();
+        gCredentials.email    = $('#login-email').val();
+        gCredentials.password = $('#login-password').val();
         console.log("gCredentials:",gCredentials);
         /*
         account.login(gCredentials,
@@ -62,13 +78,35 @@ var app = {
 
     getAccount : function (callback) {
         console.log("app.getAccount");
+        /*
+        account.getAccount(<<PARMS>>,
+            function () { // success
+            },
+            function () { // error
+            });
+        */
     },
 
-    updateAccount : function (callback) {
-        console.log("app.updateAccount");
+    setAccount : function (callback) {
+        console.log("app.setAccount");
+        /*
+        account.setAccount(<<PARMS>>,
+            function () { // success
+            },
+            function () { // error
+            });
+        */
     },
 
     resetPassword : function (email) {
         console.log("app.resetPassword");
+        gCredentials.email    = email;
+        /*
+        account.resetPassword(email,
+            function () { // success
+            },
+            function () { // error
+            });
+        */
     }
 }

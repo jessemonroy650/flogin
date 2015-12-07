@@ -2,6 +2,9 @@
 Date: 2015-11-28 (1448708146)
 
 
+http://www.movable-type.co.uk/scripts/sha256.html
+scripts-enc@movable-type.co.uk
+
 1. accountCreate
 2. accountLogin
 3. accountLogout

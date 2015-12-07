@@ -19,9 +19,11 @@ var app = {
         console.log("app.signup");
         var okGetUU = $('#uuid').is(":checked");
         var okGetMM = $('#makemodel').is(":checked");
-        gCredentials.email    = $('#email').val();
-        gCredentials.password = $('#password').val();
-        console.log("gCredentials:",gCredentials);
+        //gCredentials.email    = $('#email').val();
+        //gCredentials.password = $('#password').val();
+        //console.log("gCredentials:",gCredentials);
+        gUserData.email       = $('#email').val();
+        gUserData.password    = $('#password').val();
         gUserData.name        = $('#name').val();
         gUserData.phone       = $('#phone').val();
         gUserData.uuid      = false;
@@ -39,15 +41,14 @@ var app = {
 */
         console.log("gUserData:", gUserData);
         //console.log(sErrorMsgLostPass[INVALID_USER]);
-        account.create(gCredentials);
-/*,
+        account.create(gUserData,
             function (data) { // success
-                myMessage.myMessage('message','success', "Account created", 4000);
+                myMessage.myMessage('message','success', "Account created", 6000);
             },
             function (error) { // error
-                myMessage.myMessage('message','error', "Error creating account:" + error, 6000);
+                myMessage.myMessage('message','error', "Error creating account:" + error, 8000);
             });
-        */
+        //
         // clear out fields
         $('#email').val("");
         $('#password').val("");

@@ -26,14 +26,16 @@ var readData = function (dataRef, callback, err) {
 //
 //    Write some actual data
 //
-var writeData = function (dataRef, data, callback, err) {
+var writeData = function (dataRef, data, callback, callerr) {
 
     if (dataRef) {
         dataRef.set(data, function(e) {
             if (e) {
-                console.log("error writeData:" + e.code);
+                console.log("error writeData:" + e);
+                callerr(e);
             } else {
                 console.log("data write succeed");
+                callback("data written:" + data);
             }
         });
     } else {

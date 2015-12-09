@@ -1,6 +1,3 @@
-
-
-
 //
 //    Read Data
 //
@@ -12,7 +9,7 @@ var readData = function (dataRef, callback, err) {
             if (val) {
                 if ( typeof callback === 'function' ) {
                     console.log("readData callback()");
-                    callback(datasnapshot.val());
+                    callback(datasnapshot);
                 }
                 console.log("readData has children/data." + JSON.stringify(datasnapshot.val()));
             } else {
@@ -31,10 +28,8 @@ var writeData = function (dataRef, data, callback, callerr) {
     if (dataRef) {
         dataRef.set(data, function(e) {
             if (e) {
-                console.log("error writeData:" + e);
                 callerr(e);
             } else {
-                console.log("data write succeed");
                 callback("data written:" + data);
             }
         });

@@ -30,21 +30,3 @@ var monitorUserStatus = function (baseref, userref) {
         }
     });
 };
-
-// Firebase: Detecting if data exists. This snippet detects if a user ID is already taken
-// https://gist.github.com/anantn/4323949
-// This call is asynchronous.
-var doesAccountExists = function (userEmail, usersURL, callback, errCallback) {
-    console.log("doesAccountExists");
-    var usersRef = new Firebase(usersURL);
-    var crypted  = md5(userEmail);
-    console.log("doesAccountExists:" + crypted);
-    usersRef.child(crypted).once('value', function(snapshot) {
-        var exists = (snapshot.val() !== null);
-        callback(exists);
-    },
-    function (err) {
-        errCallback(err);
-    });
-
-};

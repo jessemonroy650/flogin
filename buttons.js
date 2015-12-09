@@ -54,7 +54,9 @@ $('#button-set-account').click(function() {
 $('#button-signup').click(function() {
     console.info("#button-signup");
     if ($('#email').val() && $('#password').val()) {
-        app.signup();
+        //app.signup();
+        // changed to stand-alone module on 2015-12-07
+        signup();
     } else {
         console.log("No email/password - email given:" + $('#email').val());
         // give user feedback, we require email and password

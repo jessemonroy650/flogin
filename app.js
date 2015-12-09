@@ -4,8 +4,8 @@
 
 */
 var gUserDataRef    = null;
-var gCredentials    = {"email": undefined, "password": undefined};
-var gUserData       = {"name": undefined,"phone": undefined,"uuid": undefined,"makemodel": undefined};
+//var gCredentials    = {"email": undefined, "password": undefined};
+//var gUserData       = {"name": undefined,"phone": undefined,"uuid": undefined,"makemodel": undefined};
 var gCloudConnected = undefined;
 var gLoggedIn       = undefined;
 
@@ -15,13 +15,11 @@ var app = {
         console.log("app.initialize");
     },
 
+/* Move signup to stand-alone on 2015-12-07
     signup : function () {
         console.log("app.signup");
         var okGetUU = $('#uuid').is(":checked");
         var okGetMM = $('#makemodel').is(":checked");
-        //gCredentials.email    = $('#email').val();
-        //gCredentials.password = $('#password').val();
-        //console.log("gCredentials:",gCredentials);
         gUserData.email       = $('#email').val();
         gUserData.password    = $('#password').val();
         gUserData.name        = $('#name').val();
@@ -30,6 +28,7 @@ var app = {
         gUserData.makemodel = false;
         gUserData.cordova   = false;
         gUserData.platform  = false;
+*/
         // get device info only if we are on the device.
 /*
         if (gTheDevice != undefined) {
@@ -39,6 +38,7 @@ var app = {
             gUserData.platform  = device.platform + ";" + device.version;
         }
 */
+/*
         console.log("gUserData:", gUserData);
         //console.log(sErrorMsgLostPass[INVALID_USER]);
         account.create(gUserData,
@@ -55,7 +55,7 @@ var app = {
         $('#name').val("");
         $('#phone').val("");
     },
-
+*/
     login : function (credentials) {
         console.log("app.login");
         gCredentials.email    = $('#login-email').val();

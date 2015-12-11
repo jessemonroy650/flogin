@@ -37,3 +37,20 @@ var writeData = function (dataRef, data, callback, callerr) {
         console.log("writeData has no reference.");
     }
 };
+//
+//    Write some actual data
+//
+var updateData = function (dataRef, data, callback, callerr) {
+
+    if (dataRef) {
+        dataRef.update(data, function(e) {
+            if (e) {
+                callerr(e);
+            } else {
+                callback("data updated:" + data);
+            }
+        });
+    } else {
+        console.log("updateData has no reference.");
+    }
+};

@@ -18,6 +18,7 @@ $('#button-logout').click(function() {
     app.logout();
 });
 
+// This is the only interface that passes a value to the next layer. - 2015-12-09
 $('#button-reset-password').click(function() {
     console.info("#button-reset-password");
     if ($('#reset-email').val()) {
@@ -30,25 +31,11 @@ $('#button-reset-password').click(function() {
 });
 $('#button-get-account').click(function() {
     console.info("#button-get-account");
-    if ($('#gs-email').val()) {
-        app.getAccount($('#gs-email').val(), function(data) {
-        }) ;
-    } else {
-        console.log("No email/password - email given:" + $('#gs-email').val());
-        // give user feedback, we require email and password
-        myMessage.myMessage('message','error', "'email' required.", 6000);
-    }
+    app.getAccount();
 });
 $('#button-set-account').click(function() {
     console.info("#button-set-account");
-    if ($('#gs-email').val()) {
-        app.setAccount($('#gs-email').val(), function(data) {
-        }) ;
-    } else {
-        console.log("No email/password - email given:" + $('#gs-email').val());
-        // give user feedback, we require email and password
-        myMessage.myMessage('message','error', "'email' required.", 6000);
-    }
+    app.setAccount();
 });
 
 $('#button-signup').click(function() {

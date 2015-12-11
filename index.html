@@ -20,6 +20,10 @@
 <div id=message class="message success hidden" style="text-align:center;padding-top:0.5em;">
 This is a message
 </div>
+<div id=status style="margin:0.25em;">
+<span id=status-user style="float:left;">logged out</span>
+<span id=status-cloud style="float:right;">not connected</span>
+</div><br />
 <h3>firebase <tt>accounts</tt> tests</h3>
 <div id=form style="background-color:hsl(135,25%,75%);margin:0.2em;padding:0.2em;">
 <b>signup</b><br>
@@ -50,7 +54,7 @@ This is a message
 <div id=form style="background-color:hsl(270,25%,75%);margin:0.2em;padding:0.2em;">
 <b>Get/Set Account</b><br>
     <input type=text     id=gs-name      placeholder=name /><br>
-    <input type=email    id=gs-email     placeholder="email (required)" /><br>
+    <input type=email    id=gs-email     placeholder=email /><br>
     <input type=phone    id=gs-phone     placeholder=phone /><br>
     <button id=button-get-account >Get Account</button>
     <button id=button-set-account >Set Account</button>
@@ -72,6 +76,7 @@ This is a message
 <script type="text/javascript" charset="utf-8" src="messages/messages.js"></script>
 <script type="text/javascript" charset="utf-8" src="signup.js"></script>
 <script type="text/javascript" charset="utf-8" src="buttons.js"></script>
+<script type="text/javascript" charset="utf-8" src="events.js"></script>
 <script type="text/javascript" charset="utf-8" src="app.js"></script>
 <script type="text/javascript" charset="utf-8" >
     //
@@ -83,12 +88,14 @@ This is a message
     function onDeviceReady() {
         console.log("deviceready");
 
+        // After the 'deviceready event', Phonegap has initialized 'device'.
         gTheDevice = (device) ? device.platform : device;
 
         app.initialize(gTheDevice);
-        if (account == undefined) {
-            console.log("`account` undefined");
-        }
+        events.initialize(gMybaseRef, gEventTypes, gEventHandlers);
+        // 'md5' slightly faster lookup, less secure
+        // 'sha265' slightly longer lookup, more secure
+        signup.initialize(); // 'sha256' or 'md5'; defaults 'md5'
     }
 </script>
 </body>

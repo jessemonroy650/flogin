@@ -2,11 +2,7 @@
  * User signup - in theory, this is only called once. This is why it is dynamically loaded (lazy loaded).
  * Date: 2015-12-07
 */
-
-var gUserData   = {"email": undefined,"name": undefined,"phone": undefined};
-var gDeviceData = {"uuid": undefined,"makemodel": undefined,"cordova": undefined,"platform":undefined};
-var gUserDataRef    = undefined;
-var gUserDeviceRef  = undefined;
+var gWhichCrypt = 'md5';
 
 var signup = function () {
     var  mine = {};
@@ -16,8 +12,11 @@ var signup = function () {
      */
     mine.startAccount = function (credentials, userobj, deviceobj, success, error) {
         console.log("account.create:");
+        var cryptedEmail = "";
 
-        var cryptedEmail  = md5(credentials.email);
+        cryptedEmail = (gWhichCrypt == 'sha256') ? 
+                           Sha256.hash(credentials.email) :
+                           md5(credentials.email);
 
         // detectCollision()
         doesAccountExists(cryptedEmail, gUsersURLCrypt, function (exists) {
@@ -27,11 +26,16 @@ var signup = function () {
                     userobj,
                     deviceobj,
                     function (data) {
-                        success(data);
+                        // assume we can create cryptedEmail record.
+                        createAccountCrypt(cryptedEmail,
+                            gUsersURLCrypt,
+                            function() { success(data); },
+                            function(e) { error("Could not create crypt" + e);
+                            })
                     }, 
-                    error);
+                    function (e) { error("Could not create account: " + e); });
             } else {
-                console.log(obj.email + " already exists:" + exists);
+                console.log("doesAccountExists reports does exist:" + exists);
                 error("email already exists");
             }
         });
@@ -65,8 +69,8 @@ var signup = function () {
                         function () { 
                             writeData(gUserDeviceRef,
                                 deviceobj,
-                                function() {success("account created and data added");},
-                                function(e) {error("write device data to account failed. ", e);
+                                function()  { success("account created and data added"); },
+                                function(e) { error("write device data to account failed. ", e);
                             });
                         },
                         function(e) {
@@ -155,3 +159,18 @@ var doesAccountExists = function (userEmail, usersURL, callback, errCallback) {
     });
 
 };
+
+var createAccountCrypt = function (userEmail, usersURL, callback, errCallback) {
+    console.log("createAccountCrypt");
+    var usersRef = new Firebase(usersURL);
+    uref = usersRef.child(userEmail);
+    console.log("createAccountCrypt:" + userEmail);
+    console.log("createAccountCrypt:" + usersRef);
+    updateData(uref, {'active':true}, callback, errCallback);
+}
+
+// 'md5' slightly faster lookup, less secure
+// 'sha265' slightly longer lookup, more secure
+var cryptInitialize = function (which) {
+    gWhichCrypt = which;
+} ;

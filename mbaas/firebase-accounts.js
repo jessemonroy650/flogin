@@ -20,55 +20,11 @@ var sErrorMsgLostPass = {'INVALID_USER': "The specified user account does not ex
 
 var account = {
 
+/* Moved to signup.js to stand-alone on 2015-12-07
 	//
 	create : function (obj, success, error) {
-        console.log("account.create:");
-        credentials = {"email": obj.email, "password": obj.password};
-        console.log("account.create: credentials", credentials);
-        console.log("gUserbaseRef" + gUserbaseRef);
-
-        // detectCollision()
-        doesAccountExists(obj.email, gUsersURL, function (exists) {
-            console.log("callback of doesAccountExists");
-            if (! exists) {
-                // Firebase.createUser() 
-                // https://www.firebase.com/docs/web/api/firebase/createuser.html
-                // 2015-09-03 - Added 'userData', new to API
-                gUserbaseRef.createUser(credentials, function(err, userData) {
-                    if (! err) {
-                        console.log('createUser() succeeded with ' + userData.uid);
-                        account.login(credentials, function(payload) {
-                            // payload.uid payload.provider payload.auth payload.expires
-                            console.log('Create account and Login successfully with payload:', payload);
-                            gUserDataRef = gUserbaseRef.child(userData.uid);
-                            console.log("gUserDataRef:" + gUserDataRef);
-                            var data = {email: obj.email, uid: userData.uid};
-                            console.log("data:" + JSON.stringify(data));
-                            writeData(gUserDataRef,
-                                data,
-                                function() {success("account created and data added");},
-                                function(e) {success("Failed create account. " + 3);}
-                                );
-                            
-                        }, function(err) {
-                            console.error("Error with authWithPassword, which should not happen.");
-                        });
-                    } else {
-                        console.log('createUser() Failed!', err);
-                        if ('function' === typeof error) {
-                            error(err.code);
-                        }
-                    }
-                });
-            } else {
-                console.log(obj.email + " already exists:" + exists);
-                if ('function' === typeof error) {
-                    error("email already exists");
-                }
-            }
-        });
 	},
-
+*/
 	//
 	login : function(obj, success, error) {
         credentials = {"email": obj.email, "password": obj.password};
@@ -82,7 +38,7 @@ var account = {
                 //console.log('Authenticated successfully with payload:', JSON.stringify(authData));
             } else {
                 if ( typeof error === 'function' ) {
-                    //error(err);
+                    error(err);
                 }
                 console.error('Login Failed: ' + "err.code", JSON.stringify(err.code));
                 console.error(sErrorMsgLogin[err.code]);
@@ -90,38 +46,41 @@ var account = {
         });
 	},
 
-	//
+	// logout is confirmed via an event callback. see: firebase-specific.js
 	logout : function () {
         gUserbaseRef.unauth();
 	},
 
-	//
+	// https://www.firebase.com/docs/web/api/firebase/changeemail.html
 	changeEmail : function () {
 	},
 
-	//
+	// https://www.firebase.com/docs/web/api/firebase/changepassword.html
 	changePassword : function () {
 	},
 
-    getAccount : function () {
+    // https://www.firebase.com/docs/web/api/query/once.html
+    getAccount : function (baseRef, success, error) {
+        baseRef.once('value', function (dataSnapshot) {
+            success(dataSnapshot.val());
+        }, function (err) {
+            error(err);
+        });
     },
 
-    setAccount : function () {
+    updateAccount : function (baseRef, data, success, error) {
+        updateData(baseRef, data, success, error);
     },
 
-	//
+	// https://www.firebase.com/docs/web/api/firebase/resetpassword.html
 	resetPassword : function(obj, success, error) {
         var creds = {'email':obj.email}
         gMybaseRef.resetPassword(creds, function(err) {
-            if (! err){
-                if ( typeof success === 'function' ) {
-                    success();
-                }
+            if (err == null){
+                success();
                 console.log("email away.");
             } else {
-                if ( typeof error === 'function' ) {
-                    error(err);
-                }
+                error(err);
                 console.log("err.code", JSON.stringify(err.code));
                 console.log(sErrorMsgLostPass[err.code]);
             }        
